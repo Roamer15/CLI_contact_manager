@@ -1,0 +1,18 @@
+{
+  "name": "cli_contact_app",
+  "version": "1.0.0",
+  "description": "CLI contact app with objective of merging NodeJS backend to Database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ian",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.4.1",
+    "commander": "^13.1.0",
+    "dotenv": "^16.5.0",
+    "pg": "^8.14.1",
+    "yargs": "^17.7.2"
+  }
+}

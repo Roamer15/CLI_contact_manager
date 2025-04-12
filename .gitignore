@@ -1,0 +1,9 @@
+# Ignore the node modules folder
+
+node_modules/
+
+# Ignore variables
+.env
+
+#Ignore local CD files
+*.db
