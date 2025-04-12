@@ -1,5 +1,5 @@
-import { Pool } from "pg";
-import { database, host, password, port, user } from "pg/lib/defaults";
+import pkg from "pg";
+const { Pool } = pkg
 import dotenv from "dotenv";
 
 dotenv.config();
