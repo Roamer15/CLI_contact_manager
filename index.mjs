@@ -7,7 +7,6 @@ import {
   editContact,
   searchContact,
 } from './command.mjs';
-import chalk from 'chalk';
 
 async function interactiveMenu() {
   while (true) {
@@ -17,10 +16,10 @@ async function interactiveMenu() {
         name: 'action',
         message: 'What would you like to do?',
         choices: [
-          chalk.greenBright('Add Contact'),
-          chalk.redBright('List Contacts'),
-          chalk.yellowBright('Edit Contact'),
-          chalk.blueBright('Delete Contact'),
+          'Add Contact',
+          'List Contacts',
+          'Edit Contact',
+          'Delete Contact',
           'Search Contact',
           'Exit',
         ],
