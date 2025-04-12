@@ -179,6 +179,7 @@
 import chalk from "chalk";
 import pool from "./db.mjs";
 import readline from "readline";
+import inquirer from 'inquirer';
 
 // Helper functions
 export function askQuestion(query) {
@@ -212,21 +213,38 @@ export function askUpdateQuestion(query, defaultValue = "") {
 // Exportable Command Functions
 
 export async function addContact() {
-  try {
-    const name = await askQuestion(chalk.yellow("Enter name: "));
-    const email = await askQuestion(chalk.yellow("Enter email: "));
-    const phone = await askQuestion(chalk.yellow("Enter phone: "));
-    const address = await askQuestion(chalk.yellow("Enter address: "));
-
-    console.log(chalk.blue("\nContact info:", name, email, phone, address));
-    const query = `INSERT INTO CONTACTS(Name, Email, Phone, Address) VALUES ($1,$2,$3,$4)`;
-    const values = [name, email, phone, address];
-    await pool.query(query, values);
-    console.log(chalk.green("Contact added successfully"));
-  } catch (err) {
-    console.error(chalk.red("Error adding contact:"), err.message);
+    try {
+      const name = await askQuestion(chalk.yellow("Enter name: "));
+      const email = await askQuestion(chalk.yellow("Enter email: "));
+      const phone = await askQuestion(chalk.yellow("Enter phone: "));
+      const address = await askQuestion(chalk.yellow("Enter address: "));
+  
+      const groupChoices = ['Friends', 'Family', 'Work', 'School', 'Other'];
+  
+      const { group } = await inquirer.prompt([
+        {
+          type: 'list',
+          name: 'group',
+          message: 'Select a group for this contact:',
+          choices: groupChoices,
+        },
+      ]);
+  
+      console.log(chalk.blue("\nContact info:", name, email, phone, address, group));
+  
+      const query = `
+        INSERT INTO CONTACTS(Name, Email, Phone, Address, Group_Name)
+        VALUES ($1, $2, $3, $4, $5)
+      `;
+      const values = [name, email, phone, address, group];
+  
+      await pool.query(query, values);
+      console.log(chalk.green("✅ Contact added successfully!"));
+    } catch (err) {
+      console.error(chalk.red("Error adding contact:"), err.message);
+    }
   }
-}
+  
 
 export async function deleteContact() {
   try {
