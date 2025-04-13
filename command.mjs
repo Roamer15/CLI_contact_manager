@@ -210,7 +210,13 @@ export function askUpdateQuestion(query, defaultValue = "") {
   });
 }
 
-// Exportable Command Functions
+
+
+// Function to add contacts
+// Ask the user for name, email, phone, address using ecommander
+// Connect to the database
+// Insert the information to the conatct table
+// Display a success message to indicate successful addition of contact
 
 export async function addContact() {
     try {
@@ -245,6 +251,11 @@ export async function addContact() {
     }
   }
   
+// Function to delete contacts
+// Ask the user for name of contact to be deleted
+// Connect to the database
+// delete the contact information in the contact table
+// Display a success message to indicate successful addition of contact
 
 export async function deleteContact() {
   try {
@@ -262,6 +273,9 @@ export async function deleteContact() {
   }
 }
 
+// Function to List contacts
+// Connect to the contact table and display all the info in the table
+
 export async function listContacts() {
   try {
     const res = await pool.query("SELECT * FROM Contacts");
@@ -271,6 +285,10 @@ export async function listContacts() {
   }
 }
 
+
+// Function to Update contacts
+// Ask user the name of contact he/she wants to modify
+// Present all the contact fields of the matching contact one at a time permitting the user to edit them as he wishes
 export async function editContact() {
   try {
     const targetName = await askUpdateQuestion(
