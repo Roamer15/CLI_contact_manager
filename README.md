@@ -74,7 +74,6 @@ A simple Command Line Interface (CLI) application to manage contacts using Node.
        Phone VARCHAR(15) PRIMARY KEY UNIQUE NOT NULL,
        Address TEXT
    );
-   \q
    ```
 
 ## Usage
