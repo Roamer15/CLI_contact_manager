@@ -18,6 +18,10 @@ async function interactiveMenu() {
   .description('CLI to manage contacts')
   .version('1.0.0');
 
+
+  await listContacts();
+  console.log('Menu')
+
   while (true) {
     const { action } = await inquirer.prompt([
       {
