@@ -6,8 +6,16 @@ import {
   editContact,
   searchContact,
 } from './command.mjs';
+import { Command } from 'commander';
 
 async function interactiveMenu() {
+  const program = new Command()
+
+  program
+  .name('Contact Manager')
+  .description('CLI to manage contacts')
+  .version('1.0.0');
+
   while (true) {
     const { action } = await inquirer.prompt([
       {

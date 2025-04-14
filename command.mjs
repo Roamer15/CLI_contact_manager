@@ -33,6 +33,11 @@
 
 // const program = new Command();
 
+// program
+//   .name('Contact Manager')
+//   .description('CLI to manage contacts')
+//   .version('1.0.0');
+
 // // Function to add contacts
 // // Ask the user for name, email, phone, address using ecommander
 // // Connect to the database
@@ -167,6 +172,8 @@
 //     }
 //   });
 
+// export { addContact, listContacts, deleteContact, editContact, searchContact }
+
 // program.parse();
 
 
@@ -254,18 +261,61 @@ export async function addContact() {
 export async function deleteContact() {
   try {
     const name = await askQuestion(
-      chalk.yellow("Enter name of contact you wish to delete: ")
+      chalk.yellow("Enter the name of the contact you want to delete: ")
     );
-    const res = await pool.query("DELETE FROM Contacts WHERE name=$1", [name]);
-    console.log(
-      res.rowCount > 0
-        ? chalk.green("Contact deleted successfully")
-        : chalk.yellow("No contact with such name")
+
+    const res = await pool.query("SELECT * FROM Contacts WHERE name = $1", [name]);
+
+    if (res.rows.length === 0) {
+      console.log(chalk.red("No contact found with that name."));
+      return;
+    }
+
+    if (res.rows.length === 1) {
+      const confirm = await askQuestion(
+        chalk.cyan(`Do you want to delete ${res.rows[0].name} (${res.rows[0].email})? (yes/no): `)
+      );
+
+      if (confirm.toLowerCase() === "yes") {
+        await pool.query("DELETE FROM Contacts WHERE name = $1 AND email = $2", [
+          res.rows[0].name,
+          res.rows[0].email,
+        ]);
+        console.log(chalk.green("Contact deleted successfully."));
+      } else {
+        console.log(chalk.yellow("Deletion cancelled."));
+      }
+      return;
+    }
+
+    // Multiple contacts found — ask user to choose
+    console.log(chalk.yellow("Multiple contacts found:"));
+    res.rows.forEach((contact, index) => {
+      console.log(`${index + 1}. ${contact.name} - ${contact.email} - ${contact.phone}`);
+    });
+
+    const indexToDelete = await askQuestion(
+      chalk.yellow("Enter the number of the contact you want to delete: ")
     );
+
+    const selected = res.rows[parseInt(indexToDelete) - 1];
+
+    if (!selected) {
+      console.log(chalk.red("Invalid selection."));
+      return;
+    }
+
+    await pool.query(
+      "DELETE FROM Contacts WHERE name = $1 AND email = $2 AND phone = $3",
+      [selected.name, selected.email, selected.phone]
+    );
+
+    console.log(chalk.green("Contact deleted successfully."));
   } catch (err) {
     console.error(chalk.red("Error deleting contact:"), err.message);
   }
 }
+
 
 // Function to List contacts
 // Connect to the contact table and display all the info in the table
