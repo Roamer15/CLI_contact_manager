@@ -39,12 +39,8 @@
 // // Insert the information to the conatct table
 // // Display a success message to indicate successful addition of contact
 
-// program
-//   .name("contact-manager")
-//   .description("CLI to manage contacts")
-//   .version("1.0.0");
-// program
-//   .command("add")
+
+//   const addContact = new Command("add")
 //   .description("Add a new contact")
 //   .action(async (options) => {
 //     try {
@@ -69,8 +65,7 @@
 // // delete the contact information in the contact table
 // // Display a success message to indicate successful addition of contact
 
-// program
-//   .command("delete")
+//   const deleteContact = new Command("delete")
 //   .description("Delete an existing contact")
 //   //   .option("--name <name>", "Name of contact to be deleted")
 //   .action(async () => {
@@ -95,8 +90,8 @@
 // // Function to List contacts
 // // Connect to the contact table and display all the info in the table
 
-// program
-//   .command("list")
+
+//   const  listContacts = new Command("list")
 //   .description("List all existing contact")
 //   .action(async () => {
 //     try {
@@ -111,8 +106,8 @@
 // // Ask user the name of contact he/she wants to modify
 // // Present all the contact fields of the matching contact one at a time permitting the user to edit them as he wishes
 
-// program
-//   .command("update")
+
+//    const editContact = new Command("update")
 //   .description("Update a contact by name")
 //   .action(async () => {
 //     try {
@@ -150,15 +145,14 @@
 // // Function to search
 // // Ask User 
 
-// program
-//   .command("search")
-//   .description("Search for a contact by name")
+// const searchContact = new Command('search')
+//   .description('Search for a contact by name')
 //   .action(async () => {
 //     try {
 //       const field = await askQuestion("Search by (name/email/phone): ");
 //       const term = await askQuestion(`Enter ${field}: `);
 //       const query = `SELECT * FROM contacts WHERE LOWER(${field}) LIKE LOWER($1)`;
-//       const values = [`%${term}%`]; // Allows partial matches
+//       const values = [`%${term}%`]; // partial matches
 
 //       const { rows } = await pool.query(query, values);
 
