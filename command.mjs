@@ -184,7 +184,7 @@ export async function deleteContact() {
 
 export async function listContacts() {
   try {
-    const res = await pool.query("SELECT * FROM Contacts");
+    const res = await pool.query("SELECT * FROM Contacts ORDER BY name ASC");
     console.table(res.rows);
   } catch (err) {
     console.error(chalk.red("Error fetching contacts:"), err.message);
