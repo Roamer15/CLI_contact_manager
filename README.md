@@ -19,7 +19,7 @@ A simple Command Line Interface (CLI) application to manage contacts using Node.
 - Add a new contact
 - List all contacts
 - Delete a contact
-- Interactive CLI using `yargs`
+- Interactive CLI using `commander` and `inquirer`
 
 ## Prerequisites
 
@@ -39,11 +39,11 @@ A simple Command Line Interface (CLI) application to manage contacts using Node.
 
 2. **Install Required Packages**:
    ```sh
-   npm install pg yargs
+   npm install pg chalk inquirer commander
    ```
 
    - `pg`: PostgreSQL client for Node.js (https://github.com/brianc/node-postgres).
-   - `yargs`: A library to create interactive command line prompts (https://yargs.js.org/).
+   - `commander & inquirer`: A library to create interactive command line prompts (https://github.com/tj/commander.js#readme).
    - `chalk`: A library to make text in terminal more colorful (https://github.com/chalk/chalk#readme)
 
 ### 2. Set Up PostgreSQL Database
@@ -74,7 +74,6 @@ A simple Command Line Interface (CLI) application to manage contacts using Node.
        Phone VARCHAR(15) PRIMARY KEY UNIQUE NOT NULL,
        Address TEXT
    );
-   \q
    ```
 
 ## Usage
@@ -85,7 +84,7 @@ A simple Command Line Interface (CLI) application to manage contacts using Node.
    ```
 
 2. **Interact with the CLI**:
-   - Choose the action you want to perform (Add Contact, List Contacts, Delete Contact, Exit).
+   - Choose the action you want to perform (Add Contact, List Contacts, Delete Contact, Update Contact, Exit).
 
 ## Contributing
 

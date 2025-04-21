@@ -1,0 +1,7 @@
+CREATE TABLE Contacts (
+    Name VARCHAR(50) NOT NULL,
+    Email VARCHAR(150) UNIQUE,
+    Phone VARCHAR(15) PRIMARY KEY UNIQUE NOT NULL,
+    Address TEXT,
+    Group_Name TEXT,
+)
